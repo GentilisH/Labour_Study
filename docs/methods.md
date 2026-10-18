@@ -13,4 +13,4 @@
 9. Q23仅在明确报告权益问题者中描述；Q24主表限定为报告问题且未选劳动监察/仲裁/法院者。多选允许各项和超过100%；“未采取行动”冲突保留标记。这种口径只表示未选择三个外部途径，不代表没有所有正式程序；问卷缺少准确跳题与案件时间信息。
 10. 便利样本、潜在社交网络聚类、回忆与自选偏差均不可由P值消除。不作无依据的城市户籍降采样、逆概率加权或人口加权。现时薪资/行业可能既是混杂代理，也可能是户籍影响路径中的中介；直接调整不必然识别户籍总效应。非农业内部无显著差异不能推出农业差距完全由户籍造成。
 
-主要方法来源：Wilson (1927), JASA 22:209-212, DOI 10.1080/01621459.1927.10502953；Newcombe (1998), Statistics in Medicine 17:873-890；Holm (1979), Scandinavian Journal of Statistics 6:65-70；SciPy Fisher 精确检验文档：https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.fisher_exact.html 。所有程序算法独立实现在标准库路径中；检验是工作模型下的不确定性度量，不是概率抽样代表性的保证。
+主要方法来源：NEWCOMBE R G. Confidence Intervals for Proportions and Related Measures of Effect Size[M]. Boca Raton: CRC Press, 2013;  NAVARRO D. Learning Statistics with R[M/OL]. 第14章，多重比较与Holm校正. https://learningstatisticswithr.com/14-anova.html；SciPy Fisher 精确检验文档：https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.fisher_exact.html 。所有程序算法独立实现在标准库路径中；检验是工作模型下的不确定性度量，不是概率抽样代表性的保证。
