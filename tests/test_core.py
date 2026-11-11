@@ -37,6 +37,22 @@ class Data(unittest.TestCase):
         r['q21_1']='';r['q21_9']='';d,_,_=derive(r);self.assertIsNone(d['any_violation'])
         self.assertEqual(migration('否则'),'unknown');self.assertEqual(migration('否，6个月'),'local')
         self.assertEqual(migration('20年'),'unknown');self.assertEqual(migration('是，5年'),'nonlocal')
+    def test_q3_migration_classification(self):
+        cases = [
+            ('是，我长期住在户籍所在地以外', 'nonlocal', 'nonlocal'),
+            ('是的，我仍在户籍所在地工作', 'nonlocal', 'nonlocal'),
+            ('我长期住在户籍所在地以外', 'nonlocal', 'nonlocal'),
+            ('否，我没有长期居住在户籍所在地以外', 'local', 'local'),
+            ('我没有在户籍所在地以外居住', 'local', 'local'),
+            ('一直在户籍所在地工作', 'local', 'local'),
+            ('20年', 'unknown', 'nonlocal'),
+        ]
+        for answer, observed, main in cases:
+            with self.subTest(answer=answer):
+                record = dict(synthetic(), q3=answer)
+                fields, _, _ = derive(record)
+                self.assertEqual(fields['migration_observed'], observed)
+                self.assertEqual(fields['migration_main'], main)
     def test_idempotency_revision_and_rollback(self):
         with tempfile.TemporaryDirectory() as t:
             p=Path(t)/'data.csv';db=Path(t)/'study.sqlite';r=synthetic();write_csv(p,[r],FIELDS)
