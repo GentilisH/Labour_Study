@@ -30,9 +30,20 @@ def code(v,lo,hi,field,issues):
 
 def migration(v):
     s=text(v)
-    if s=='没有' or re.match(r'^否($|[，,。\s])',s) or s.startswith('没有居住'):
+def migration(v):
+    s = text(v)
+    # A direct answer to the residence question takes precedence over later place names.
+    direct = re.match(r'^(是(?:的)?|否)(?:$|[，,。；;、：:\s])', s)
+    if direct:
+        return 'local' if direct[1] == '否' else 'nonlocal'
+    if s == '没有' or s.startswith('没有居住'):
         return 'local'
-    if any(x in s for x in ('一直在户藉地工作','在户籍地','在户籍所在地','居住户籍地')):
+    if re.match(
+        r'^(?:我|本人)?(?:目前|现在|一直|长期)*(?:居住|住|工作)?'
+        r'在(?:户籍所在地|户籍地)(?:以外|之外)', s
+    ):
+        return 'nonlocal'
+    if any(x in s for x in ('一直在户藉地工作', '在户籍地', '在户籍所在地', '居住户籍地')):
         return 'local'
     if s.startswith('是') or '外地工作' in s or '户口所在地以外' in s:
         return 'nonlocal'
